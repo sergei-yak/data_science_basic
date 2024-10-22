@@ -8,13 +8,14 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.preprocessing import MinMaxScaler
 
 #create dataframe pandas from csv file:
-df_binance = pd.read_csv('df_combined.csv') # this data is from binance exchange API btc to usdt price data
+df_binance = pd.read_csv('data_science_basic/df_combined.csv') # this data is from binance exchange API btc to usdt price data
 
 #preprocessing techniques
 df_binance = df_binance.dropna()
 df_binance = df_binance.reset_index(drop=True)
 df_binance['Event time'] = pd.to_datetime(df_binance['Event time'])
-df_short = df_binance[['Open price', 'High price', 'Low price', 'Close price']]
+df_short = df_binance[['Event time', 'Open price', 'High price', 'Low price', 'Close price']]
+df_short = df_short.sort_values(by='Event time')
 
 # EDA and key insights
 print("Summary Statistics:")
@@ -52,8 +53,13 @@ plt.show()
 
 print('test')
 # Split the data into training and test sets
-X_train, X_test, y_train, y_test = train_test_split(df_short[['Open price', 'High price', 'Low price']],
-                                                    df_short['Close price'], test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test, event_time_train, event_time_test = train_test_split(
+    df_short[['Open price', 'High price', 'Low price']],
+    df_short['Close price'], 
+    df_short['Event time'],
+    test_size=0.2,
+    random_state=42
+)
 
 # Scale the features
 scaler = MinMaxScaler(feature_range=(0, 1))
@@ -70,24 +76,33 @@ predictions = model.predict(X_test_scaled)
 
 # Output predictions and actual values for comparison
 predictions_df = pd.DataFrame({
+    'Event time': event_time_test.reset_index(drop=True), 
     'Predicted': predictions,
-    'Actual': y_test
+    'Actual': y_test.reset_index(drop=True) 
 })
 predictions_df.reset_index(drop=True, inplace=True)
-print(predictions_df)
+print(predictions_df.sort_values(by='Event time'))
 
 # make evaluation metrics
-from sklearn.metrics import mean_squared_error
+#from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import r2_score
 
 # Print evaluation metrics
-print("Mean Squared Error: ", mean_squared_error(predictions_df['Actual'], predictions_df['Predicted']))
+#print("Mean Squared Error: ", mean_squared_error(predictions_df['Actual'], predictions_df['Predicted']))
 print("Mean Absolute Error: ", mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted']))
 print("R2 Score: ", r2_score(predictions_df['Actual'], predictions_df['Predicted']))
 print("Mean Absolute Percentage Error: ", mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted'])/predictions_df['Actual'].mean())
 
 #build a line chart in plotly for predictions
 import plotly.express as px
-fig = px.line(predictions_df['Predicted'])
+
+#show the predictions for last 1 minute
+last_60_values = predictions_df.tail(60)
+# Reshape the data using melt to combine 'Predicted' and 'Actual' into a single column
+last_60_values_melted = last_60_values.melt(id_vars=['Event time'], value_vars=['Predicted', 'Actual'],
+                                            var_name='Type', value_name='Price')
+last_60_values_melted = last_60_values_melted.sort_values(by='Event time')
+# Create a line chart with color differentiation between Predicted and Actual
+fig = px.line(last_60_values_melted, x="Event time", y="Price", color='Type', title='Predicted vs Actual Prices')
 fig.show()
