@@ -12,7 +12,7 @@ df_binance = pd.read_csv('df_combined.csv') # this data is from binance exchange
 df_binance = df_binance.dropna()
 df_binance = df_binance.reset_index(drop=True)
 df_binance['Event time'] = pd.to_datetime(df_binance['Event time'])
-
+df_short=df_binance[['Open price' ,'High price,' 'Low price', 'Close price']]
 # EDA and key insights
 print("Summary Statistics:")
 print(df_binance.describe())
@@ -23,12 +23,7 @@ print(df_binance.info())
 
 
 #build candlestick chart in plotly
-import plotly.graph_objects as go
-fig = go.Figure(data=[go.Candlestick(x=df_binance['Event time'],
-                open=df_binance['Open price'],
-                high=df_binance['High price'],
-                low=df_binance['Low price'],
-                close=df_binance['Close price'])])
+
 #fig.update_layout(xaxis_rangeslider_visible=False)
 fig.show()
 
