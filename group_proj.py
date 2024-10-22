@@ -68,6 +68,7 @@ from sklearn.metrics import r2_score
 print("Mean Squared Error: ", mean_squared_error(y_test, predictions))
 print("Mean Absolute Error: ", mean_absolute_error(y_test, predictions))
 print("R2 Score: ", r2_score(y_test, predictions))
+print("Mean Absolute Percentage Error: ", mean_absolute_error(y_test, predictions)/y_test.mean())
 
 
 # Print predictions
