@@ -106,3 +106,39 @@ last_60_values_melted = last_60_values_melted.sort_values(by='Event time')
 # Create a line chart with color differentiation between Predicted and Actual
 fig = px.line(last_60_values_melted, x="Event time", y="Price", color='Type', title='Predicted vs Actual Prices')
 fig.show()
+
+#create dashboard
+from plotly.subplots import make_subplots
+fig = make_subplots(rows=2, cols=2, subplot_titles=("Price of BTC futures", "Close Price Distribution of BTC futures", 
+                                    "Evaluation Metrics", "Predicted vs Actual Prices"))
+
+fig.add_trace(go.Candlestick(x=df_short['Event time'],
+                             open=df_short['Open price'],
+                             high=df_short['High price'],
+                             low=df_short['Low price'],
+                             close=df_short['Close price'],
+                             name='Price of BTC futures'),  row=1, col=1)
+fig.add_trace(go.Histogram(x=df_short['Close price'], name='Close Price Distribution'), row=1, col=2)
+fig.add_trace(go.Bar(x=['Mean Absolute Error', 'R2 Score', 'Mean Absolute Percentage Error'], y=[mean_absolute_error(predictions_df['Actual'], 
+                                                                                                                     predictions_df['Predicted']),r2_score(predictions_df['Actual'], predictions_df['Predicted']),
+
+                                                                                                                      mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted'])/predictions_df['Actual'].mean()], name='Evaluation metrics'), row=2, col=1)
+
+
+fig.add_trace(go.Scatter(x=predictions_df.tail(60).sort_values(by='Event time')['Event time'], y=predictions_df.tail(60).sort_values(by='Event time')['Predicted'], mode='lines', name='Predicted price'), row=2, col=2)
+fig.add_trace(go.Scatter(x=predictions_df.tail(60).sort_values(by='Event time')['Event time'], y=predictions_df.tail(60).sort_values(by='Event time')['Actual'], mode='lines', name='Actual price'), row=2, col=2)
+
+#add names for subplots x/y axis
+fig.update_yaxes(title_text="Price", row=1, col=1)
+fig.update_yaxes(title_text="Price", row=1, col=2)
+#fig.update_yaxes(title_text="Price", row=2, col=1)
+fig.update_yaxes(title_text="Price", row=2, col=2)
+fig.update_xaxes(title_text="Time", row=1, col=1)
+fig.update_xaxes(title_text="Time", row=1, col=2)
+#fig.update_xaxes(title_text="Time", row=2, col=1)
+fig.update_xaxes(title_text="Time", row=2, col=2)
+fig.update_xaxes(rangeslider_visible=False, row=1, col=1)
+fig.update_layout(height=800, width=1000, title_text="Time Series Forecasting Dashboard")
+
+#fig.write_html('df_dashboard.html')
+fig.show()
