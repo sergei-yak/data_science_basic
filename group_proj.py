@@ -94,6 +94,13 @@ print("Mean Absolute Error: ", mean_absolute_error(predictions_df['Actual'], pre
 print("R2 Score: ", r2_score(predictions_df['Actual'], predictions_df['Predicted']))
 print("Mean Absolute Percentage Error: ", mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted'])/predictions_df['Actual'].mean())
 
+#create df of evaluation metrics
+df_evaluation = pd.DataFrame({
+    'Mean Absolute Error': [round(mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted']),4)],
+    'R2 Score': [round(r2_score(predictions_df['Actual'], predictions_df['Predicted']),4)],
+    'Mean Absolute Percentage Error': [round((mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted'])/predictions_df['Actual'].mean()),4)]
+})
+
 #build a line chart in plotly for predictions
 import plotly.express as px
 
@@ -110,7 +117,9 @@ fig.show()
 #create dashboard
 from plotly.subplots import make_subplots
 fig = make_subplots(rows=2, cols=2, subplot_titles=("Price of BTC futures", "Close Price Distribution of BTC futures", 
-                                    "Evaluation Metrics", "Predicted vs Actual Prices"))
+                                    "Evaluation Metrics", "Predicted vs Actual Prices"),
+                                    specs=[[{"type": "xy"}, {"type": "xy"}],[{"type": "domain"}, {"type": "xy"}]
+    ] )
 
 fig.add_trace(go.Candlestick(x=df_short['Event time'],
                              open=df_short['Open price'],
@@ -119,12 +128,22 @@ fig.add_trace(go.Candlestick(x=df_short['Event time'],
                              close=df_short['Close price'],
                              name='Price of BTC futures'),  row=1, col=1)
 fig.add_trace(go.Histogram(x=df_short['Close price'], name='Close Price Distribution'), row=1, col=2)
-fig.add_trace(go.Bar(x=['Mean Absolute Error', 'R2 Score', 'Mean Absolute Percentage Error'], y=[mean_absolute_error(predictions_df['Actual'], 
-                                                                                                                     predictions_df['Predicted']),r2_score(predictions_df['Actual'], predictions_df['Predicted']),
+#fig.add_trace(go.Bar(x=['Mean Absolute Error', 'R2 Score', 'Mean Absolute Percentage Error'], y=[mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted']),r2_score(predictions_df['Actual'], predictions_df['Predicted']), mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted'])/predictions_df['Actual'].mean()], name='Evaluation metrics'), row=2, col=1)
 
-                                                                                                                      mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted'])/predictions_df['Actual'].mean()], name='Evaluation metrics'), row=2, col=1)
-
-
+fig.add_trace(go.Table(
+        header=dict(
+            values=list(df_evaluation.columns),
+            fill_color='paleturquoise',
+            align='left'
+        ),
+        cells=dict(
+            values=[df_evaluation[col] for col in df_evaluation.columns],
+            fill_color='lavender',
+            align='left'
+        )
+    ),
+    row=2, col=1
+)
 fig.add_trace(go.Scatter(x=predictions_df.tail(60).sort_values(by='Event time')['Event time'], y=predictions_df.tail(60).sort_values(by='Event time')['Predicted'], mode='lines', name='Predicted price'), row=2, col=2)
 fig.add_trace(go.Scatter(x=predictions_df.tail(60).sort_values(by='Event time')['Event time'], y=predictions_df.tail(60).sort_values(by='Event time')['Actual'], mode='lines', name='Actual price'), row=2, col=2)
 
@@ -138,7 +157,7 @@ fig.update_xaxes(title_text="Time", row=1, col=2)
 #fig.update_xaxes(title_text="Time", row=2, col=1)
 fig.update_xaxes(title_text="Time", row=2, col=2)
 fig.update_xaxes(rangeslider_visible=False, row=1, col=1)
-fig.update_layout(height=800, width=1000, title_text="Time Series Forecasting Dashboard")
+fig.update_layout(height=1000, width=1200, title_text="Time Series Forecasting Dashboard", title_x=0.5)
 
-#fig.write_html('df_dashboard.html')
+fig.write_html('df_dashboard.html')
 fig.show()
