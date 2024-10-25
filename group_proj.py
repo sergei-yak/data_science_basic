@@ -162,7 +162,7 @@ fig.update_layout(height=1000, width=1200, title_text="Time Series Forecasting D
 fig.write_html('df_dashboard.html')
 fig.show()
 
-
+'''
 import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error
@@ -209,3 +209,100 @@ mae = mean_absolute_error(y_test_rescaled, y_pred_rescaled)
 print("Mean Absolute Error: ", mae)
 print("R2 Score: ", r2_score(y_test_rescaled, y_pred_rescaled))
 print("Mean Absolute Percentage Error: ", mean_absolute_error(y_test_rescaled, y_pred_rescaled)/y_test_rescaled.mean())
+'''
+import torch
+import torch.nn as nn
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+# Set seed for reproducibility
+np.random.seed(42)
+torch.manual_seed(42)
+
+# Data Preprocessing
+scaler = MinMaxScaler(feature_range=(0, 1))
+df_scaled = scaler.fit_transform(df_short[['Close price']])
+
+X, y = [], []
+time_steps = 60
+for i in range(time_steps, len(df_scaled)):
+    X.append(df_scaled[i - time_steps:i, 0])
+    y.append(df_scaled[i, 0])
+
+X, y = np.array(X), np.array(y)
+X = X.reshape((X.shape[0], X.shape[1], 1))
+
+# Splitting into training and testing sets
+split_index = int(0.8 * len(X))
+X_train, X_test = X[:split_index], X[split_index:]
+y_train, y_test = y[:split_index], y[split_index:]
+
+# Convert data to PyTorch tensors
+X_train = torch.tensor(X_train, dtype=torch.float32)
+X_test = torch.tensor(X_test, dtype=torch.float32)
+y_train = torch.tensor(y_train, dtype=torch.float32).unsqueeze(1)
+y_test = torch.tensor(y_test, dtype=torch.float32).unsqueeze(1)
+
+# Define LSTM model
+class LSTMModel(nn.Module):
+    def __init__(self, input_size, hidden_size, num_layers, output_size):
+        super(LSTMModel, self).__init__()
+        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
+        self.fc = nn.Linear(hidden_size, output_size)
+    
+    def forward(self, x):
+        h_0 = torch.zeros(2, x.size(0), 50)  # hidden state (num_layers, batch_size, hidden_size)
+        c_0 = torch.zeros(2, x.size(0), 50)  # cell state (num_layers, batch_size, hidden_size)
+
+        # LSTM forward pass
+        out, _ = self.lstm(x, (h_0, c_0))  # Pass the input through the LSTM layers
+        out = self.fc(out[:, -1, :])        # Pass the last output through the dense layer
+        return out
+
+# Hyperparameters
+input_size = 1
+hidden_size = 50
+num_layers = 2
+output_size = 1
+learning_rate = 0.001
+num_epochs = 20
+batch_size = 32
+
+# Instantiate the model, loss function, and optimizer
+model = LSTMModel(input_size, hidden_size, num_layers, output_size)
+criterion = nn.MSELoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
+# Training loop
+for epoch in range(num_epochs):
+    model.train()
+    optimizer.zero_grad()
+    output = model(X_train)
+    loss = criterion(output, y_train)
+    loss.backward()
+    optimizer.step()
+    
+    if (epoch + 1) % 5 == 0:
+        print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
+
+# Evaluation and Predictions
+model.eval()
+with torch.no_grad():
+    y_pred = model(X_test)
+
+# Convert predictions and true values back to the original scale
+y_pred_rescaled = scaler.inverse_transform(y_pred.numpy())
+y_test_rescaled = scaler.inverse_transform(y_test.numpy())
+
+# Evaluation metrics
+mse = mean_squared_error(y_test_rescaled, y_pred_rescaled)
+mae = mean_absolute_error(y_test_rescaled, y_pred_rescaled)
+r2 = r2_score(y_test_rescaled, y_pred_rescaled)
+mape = mae / y_test_rescaled.mean()
+
+print("Mean Squared Error: ", mse)
+print("Mean Absolute Error: ", mae)
+print("R2 Score: ", r2)
+print("Mean Absolute Percentage Error: ", mape)
