@@ -161,3 +161,51 @@ fig.update_layout(height=1000, width=1200, title_text="Time Series Forecasting D
 
 fig.write_html('df_dashboard.html')
 fig.show()
+
+
+import tensorflow as tf
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense
+
+scaler = MinMaxScaler(feature_range=(0, 1))
+df_scaled = scaler.fit_transform(df_short[['Close price']])
+
+X, y = [], []
+time_steps = 60
+for i in range(time_steps, len(df_scaled)):
+    X.append(df_scaled[i - time_steps:i, 0])
+    y.append(df_scaled[i, 0])
+
+X, y = np.array(X), np.array(y)
+X = X.reshape((X.shape[0], X.shape[1], 1))
+
+    
+# Splitting into training and testing sets
+split_index = int(0.8 * len(X))
+X_train, X_test = X[:split_index], X[split_index:]
+y_train, y_test = y[:split_index], y[split_index:]
+
+# Building and training the LSTM model
+model = Sequential()
+model.add(LSTM(50, return_sequences=True, input_shape=(X_train.shape[1], 1)))
+model.add(LSTM(50, return_sequences=False))
+model.add(Dense(1))
+model.compile(optimizer='adam', loss='mean_squared_error')
+
+
+model.fit(X_train, y_train, epochs=20, batch_size=32, validation_data=(X_test, y_test), verbose=1)
+
+# Making predictions on the test set
+y_pred = model.predict(X_test)
+y_pred_rescaled = scaler.inverse_transform(y_pred)
+y_test_rescaled = scaler.inverse_transform(y_test.reshape(-1, 1))
+
+# Evaluation metrics
+mse = mean_squared_error(y_test_rescaled, y_pred_rescaled)
+mae = mean_absolute_error(y_test_rescaled, y_pred_rescaled)
+
+print("Mean Absolute Error: ", mae)
+print("R2 Score: ", r2_score(y_test_rescaled, y_pred_rescaled))
+print("Mean Absolute Percentage Error: ", mean_absolute_error(y_test_rescaled, y_pred_rescaled)/y_test_rescaled.mean())
