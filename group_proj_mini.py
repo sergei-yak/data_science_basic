@@ -71,8 +71,8 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 # Define and train the ElasticNet model
-#model = ElasticNet(random_state=42)
-model = LinearRegression()
+model = ElasticNet(random_state=42)
+#model = LinearRegression()
 model.fit(X_train_scaled, y_train)
 
 # Make predictions on the test set
