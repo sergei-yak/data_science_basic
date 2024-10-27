@@ -77,4 +77,14 @@ print(predictions)
 #build a line chart in plotly for predictions
 import plotly.express as px
 fig = px.line(predictions)
+fig = go.Figure()
+predicted_df = pd.DataFrame(predictions, columns=['Predicted Close Price'])
+predicted_df['Actual Close Price'] = y_test.values.flatten()  # Flatten the array to match dimensions
+predicted_df['Event Time'] = df_binance.loc[X_test.index, 'Event time'].values  # Use the corresponding event times
+fig.add_trace(go.Scatter(x=predicted_df['Event Time'], y=predicted_df['Actual Close Price'], mode='lines', name='Actual Close Price', line=dict(color='blue')))
+fig.add_trace(go.Scatter(x=predicted_df['Event Time'], y=predicted_df['Predicted Close Price'], mode='lines', name='Predicted Close Price', line=dict(color='red')))
+fig.update_layout(title='Actual vs Predicted Close Prices',
+                  xaxis_title='Event Time',
+                  yaxis_title='Price (USDT)',
+                  legend_title='Legend')
 fig.show()
