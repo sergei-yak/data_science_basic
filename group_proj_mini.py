@@ -165,7 +165,7 @@ hidden_size = 100
 num_layers = 3
 output_size = 1
 learning_rate = 0.001
-num_epochs = 500
+num_epochs = 5
 batch_size = 64
 dropout_rate = 0.2
 
@@ -231,7 +231,8 @@ df_evaluation.loc[1] = [round(mae,4), round(r2,4), round(mape,4), 'LSTM bidirect
 from plotly.subplots import make_subplots
 fig = make_subplots(rows=2, cols=2, subplot_titles=("Price of BTC futures", "Close Price Distribution of BTC futures",
                                     "Evaluation Metrics", "Predicted vs Actual Prices"),
-                                    specs=[[{"type": "xy"}, {"type": "xy"}],[{"type": "domain"}, {"type": "xy"}]
+                                    horizontal_spacing=0.1,
+                                    specs=[[{"type": "xy"}, {"type": "xy"}],[{"type": "domain"}, {"type": "xy"}],
     ] )
 
 fig.add_trace(go.Candlestick(x=df_short['Event time'],
@@ -242,6 +243,7 @@ fig.add_trace(go.Candlestick(x=df_short['Event time'],
                              name='Price of BTC futures'),  row=1, col=1)
 fig.add_trace(go.Histogram(x=df_short['Close price'], name='Price Distribution'), row=1, col=2)
 #fig.add_trace(go.Bar(x=['Mean Absolute Error', 'R2 Score', 'Mean Absolute Percentage Error'], y=[mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted']),r2_score(predictions_df['Actual'], predictions_df['Predicted']), mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted'])/predictions_df['Actual'].mean()], name='Evaluation metrics'), row=2, col=1)
+
 
 fig.add_trace(go.Table(
         header=dict(
@@ -266,15 +268,34 @@ fig.add_trace(go.Scatter(x=predictions_df[predictions_df['Model_x'] == "ElasticN
 
 #add names for subplots x/y axis
 fig.update_yaxes(title_text="Price", row=1, col=1)
-fig.update_yaxes(title_text="Price", row=1, col=2)
-#fig.update_yaxes(title_text="Price", row=2, col=1)
+fig.update_yaxes(title_text="Frequency", row=1, col=2)
 fig.update_yaxes(title_text="Price", row=2, col=2)
-fig.update_xaxes(title_text="Time", row=1, col=1)
-fig.update_xaxes(title_text="Time", row=1, col=2)
-#fig.update_xaxes(title_text="Time", row=2, col=1)
-fig.update_xaxes(title_text="Time", row=2, col=2)
+fig.update_xaxes(title_text="Time (data in seconds)", row=1, col=1)
+fig.update_xaxes(title_text="Price", row=1, col=2)
+fig.update_xaxes(title_text="Time (data in seconds)", row=2, col=2)
 fig.update_xaxes(rangeslider_visible=False, row=1, col=1)
-fig.update_layout(height=1000, width=1200, title_text="Time Series Forecasting Dashboard", title_x=0.5)
+fig.update_layout(height=900, width=1500, title_text="Time Series Forecasting Dashboard", title_x=0.5)
+
+# Adding an annotation for the evaluation metrics conclusions
+fig.add_annotation(
+    text='<b>MAE</b> - the average absolute difference between predicted and actual values. '
+         '<br>A lower MAE indicates better performance. '
+         '<br>'
+         '<br><b>R² score</b> - the proportion of variance in the target variable that is explained by the model. '
+         '<br>A higher R² score indicates a better fit. '
+         '<br>'
+         '<br> <b>MAPE</b> - the average percentage difference between predicted and actual values. '
+         '<br>A lower MAPE indicates better accuracy. ',
+    x=-0.005,
+    y=0.00,
+    xref="paper",
+    yref="paper",
+    showarrow=False,
+    arrowhead=2,
+    bgcolor='rgba(255, 255, 255, 0.8)',
+    bordercolor='#19D3F3',
+    borderwidth=2
+)
 
 fig.write_html('df_dashboard.html')
 fig.show()
