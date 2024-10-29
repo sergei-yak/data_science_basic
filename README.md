@@ -1,4 +1,4 @@
-#### Group mini project - data_science_basic
+## Group mini project - data_science_basic
 
 # Objective: Apply data science concepts on a dataset of your choice.
 
