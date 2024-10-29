@@ -58,11 +58,9 @@ In the project we used two models to compare its performance:
 - LSTM model - recurrent nearal network, which is good for remembering long-term dependencies (we used pytorch library).
 
 Evaluation metrics we used:
-MAE - the average absolute difference between predicted and actual values. A lower MAE indicates better performance. 
-R² score - the proportion of variance in the target variable that is explained by the model. '
-A higher R² score indicates a better fit. '
-MAPE - the average percentage difference between predicted and actual values. '
-A lower MAPE indicates better accuracy. '
+- MAE - the average absolute difference between predicted and actual values. A lower MAE indicates better performance. 
+- R² score - the proportion of variance in the target variable that is explained by the model. A higher R² score indicates a better fit.
+- MAPE - the average percentage difference between predicted and actual values. A lower MAPE indicates better accuracy. '
 
 # Conclusions
 	The Bidirectional LSTM model outperforms the ElasticNet model on all key metrics: MAE, R² score, and MAPE.
