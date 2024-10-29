@@ -1,30 +1,5 @@
 # Group mini project - data_science_basic
 
-# Objective: Apply data science concepts on a dataset of your choice.
-
-# Tasks:
-    # Acquire, clean, and preprocess data.
-    # Perform EDA and visualize key insights.
-	# Build and evaluate a machine learning model.
-
-# Requirements:
-    # Work on this as a group (Same team as the previous GIT exercise).
-    # Use a dataset that is not used in the class.
-    # Use at least 3 different visualization techniques. - what techniques?
-    # Use at least 1 different machine learning algorithms.
-    # Use at least 2 different evaluation metrics.
-    # Use at least 2 different preprocessing techniques.
-
-# Submission Timeline:
-    # Submit the code and a report in 3 weeks.
-    # The report should include:
-        # Introduction to the dataset.
-        # Data cleaning and preprocessing steps.
-        # EDA and key insights.
-        # Machine learning model building and evaluation.
-        # Conclusion.
-        # References (if any).
-
 # Introduction to Dataset
 - The input data was sourced from the Binance Exchange API.
 - It consists of BTC_USDT futures data with columns: Event Time, Min A Price, Max B Price, A Quantity, B Quantity, Volume Imbalance, Mid Price, Micro Price, Kline Start Time, Kline Close Time, Interval, Open Price, Close Price, High Price, Low Price, Base Asset Volume, Number of Trades, Quote Asset Volume, Taker Buy Base Asset Volume, and Taker Buy Quote Asset Volume.
