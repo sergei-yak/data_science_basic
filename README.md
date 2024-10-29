@@ -71,8 +71,8 @@ Evaluation Metrics Used:
 - The Bidirectional LSTM model achieved lower average errors, higher variance explanation, and minimal percentage-based errors. This suggests that it captures the nonlinear patterns and temporal dependencies in Bitcoin prices more effectively than the ElasticNet model.
 
 # References
-Binance API - https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
-Plotly library for charts - https://plotly.com/python/subplots/
+- Binance API - https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
+- Plotly library for charts - https://plotly.com/python/subplots/
 
 # Output (was created using plotly library)
 <img width="1507" alt="Screenshot 2024-10-28 at 8 04 11 PM" src="https://github.com/user-attachments/assets/93d62aaf-5e50-4700-8257-115562f78a7a">
