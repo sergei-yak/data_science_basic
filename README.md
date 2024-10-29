@@ -65,8 +65,8 @@
 # Machine learning
 In this project, we used two models to compare their performance:
 
-ElasticNet - A linear regression model used for regression tasks (using the scikit-learn library).
-LSTM Model - A recurrent neural network that excels at capturing long-term dependencies (using the PyTorch library). For better performance we use biderectional LSTM model.
+- ElasticNet - A linear regression model used for regression tasks (using the scikit-learn library).
+- LSTM Model - A recurrent neural network that excels at capturing long-term dependencies (using the PyTorch library). For better performance we use biderectional LSTM model. 
 
 Evaluation Metrics Used:
 
@@ -80,6 +80,7 @@ Evaluation Metrics Used:
 - The Bidirectional LSTM model achieved lower average errors, higher variance explanation, and minimal percentage-based errors. This suggests that it captures the nonlinear patterns and temporal dependencies in Bitcoin prices more effectively than the ElasticNet model.
 
 # References
+- Explanation of LSTM model - https://medium.com/@anishnama20/understanding-lstm-architecture-pros-and-cons-and-implementation-3e0cca194094](https://medium.com/towards-data-science/lstm-for-google-stock-price-prediction-e35f5cc84165)
 - Binance API - https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
 - Plotly library for charts - https://plotly.com/python/subplots/
 
