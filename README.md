@@ -27,18 +27,17 @@ data science simple group project
         # References (if any).
 
 # Intro to dataset
-The input data was taken from Binance exchange API. It is BTC_USDT futures with columns:
--
--
--
-…
-For simplicity of this project we just use columns: …, high, low, open, close
+	The input data was taken from Binance exchange API. It is BTC_USDT futures with columns:
+Event time,min_a_price,max_b_price,a_quantity,b_quantity,volume_imbalance,mid_price,micro_price,Kline start time,Kline close time,Interval,Open price,Close price,High price,Low price,Base asset volume,Number of trades,Quote asset volume,Taker buy base asset volume,Taker buy quote asset volume
+	For simplicity of this project we just use columns: …, high, low, open, close
 Time frame is in seconds from month to month.
 
 # Data claning and preprocessing
 ...
 
 # EDA
+Summary Statistics:
+
 
 # Machine learning
 In the project we used two models:
