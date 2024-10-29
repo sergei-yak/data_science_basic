@@ -60,4 +60,5 @@ Evaluation Metrics Used:
 - Plotly library for charts - https://plotly.com/python/subplots/
 
 # Output (was created using plotly library)
-<img width="1507" alt="Screenshot 2024-10-28 at 8 04 11 PM" src="https://github.com/user-attachments/assets/93d62aaf-5e50-4700-8257-115562f78a7a">
+<img width="1492" alt="Screenshot 2024-10-29 at 12 49 32 AM" src="https://github.com/user-attachments/assets/911392a2-1450-4f78-b7e6-4633245cdbe8">
+
