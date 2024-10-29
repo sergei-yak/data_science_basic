@@ -27,10 +27,10 @@ data science simple group project
         # References (if any).
 
 # Introduction to Dataset
-The input data was sourced from the Binance Exchange API. It consists of BTC_USDT futures data with columns: Event Time, Min A Price, Max B Price, A Quantity, B Quantity, Volume Imbalance, Mid Price, Micro Price, Kline Start Time, Kline Close Time, Interval, Open Price, Close Price, High Price, Low Price, Base Asset Volume, Number of Trades, Quote Asset Volume, Taker Buy Base Asset Volume, and Taker Buy Quote Asset Volume.
-
-For simplicity in this project, we used the following columns: Event Time, Open Price, Close Price, High Price, and Low Price.
-The time frame is in seconds, ranging from 2024-05-19 22:44:02.997 to 2024-05-20 02:24:30.632.
+- The input data was sourced from the Binance Exchange API.
+- It consists of BTC_USDT futures data with columns: Event Time, Min A Price, Max B Price, A Quantity, B Quantity, Volume Imbalance, Mid Price, Micro Price, Kline Start Time, Kline Close Time, Interval, Open Price, Close Price, High Price, Low Price, Base Asset Volume, Number of Trades, Quote Asset Volume, Taker Buy Base Asset Volume, and Taker Buy Quote Asset Volume.
+- For simplicity in this project, we used the following columns: Event Time, Open Price, Close Price, High Price, and Low Price.
+- The time frame is in seconds, ranging from 2024-05-19 22:44:02.997 to 2024-05-20 02:24:30.632.
 
 # Data cleaning and preprocessing
 1. We dropped NA values: df_binance = df_binance.dropna()
