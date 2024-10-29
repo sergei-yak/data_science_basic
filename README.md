@@ -34,11 +34,11 @@ data science simple group project
   	Time frame is in seconds from 2024-05-19 22:44:02.997 to 2024-05-20 02:24:30.632.
 
 # Data claning and preprocessing
- 	1. we droped NA values -> df_binance = df_binance.dropna()
-  	2. we reset index of dataframe -> df_binance = df_binance.reset_index(drop=True)
-   	3. we changed 'Event time' column datetime format -> df_binance['Event time'] = pd.to_datetime(df_binance['Event time'])
-    	4. we chose specific columns from dataframe -> df_short = df_binance[['Event time', 'Open price', 'High price', 'Low price', 'Close price']]
-     	5. we sorted values by 'Event time' column -> df_short = df_short.sort_values(by='Event time')
+ 1. we droped NA values -> df_binance = df_binance.dropna()
+ 2. we reset index of dataframe -> df_binance = df_binance.reset_index(drop=True)
+ 3. we changed 'Event time' column datetime format -> df_binance['Event time'] = pd.to_datetime(df_binance['Event time'])
+ 4. we chose specific columns from dataframe -> df_short = df_binance[['Event time', 'Open price', 'High price', 'Low price', 'Close price']]
+ 5. we sorted values by 'Event time' column -> df_short = df_short.sort_values(by='Event time')
 
 # EDA
 Summary Statistics:
