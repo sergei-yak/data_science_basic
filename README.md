@@ -35,11 +35,11 @@ data science simple group project
 
 # Data claning and preprocessing
 	preprocessing techniques we used:
- 	df_binance = df_binance.dropna() # we droped NA values
-	df_binance = df_binance.reset_index(drop=True) # we reset index of dataframe
-	df_binance['Event time'] = pd.to_datetime(df_binance['Event time'])
-	df_short = df_binance[['Event time', 'Open price', 'High price', 'Low price', 'Close price']]
-	df_short = df_short.sort_values(by='Event time')
+ 	we droped NA values -> df_binance = df_binance.dropna()
+  	we reset index of dataframe -> df_binance = df_binance.reset_index(drop=True)
+   	we changed 'Event time' column datetime format -> df_binance['Event time'] = pd.to_datetime(df_binance['Event time'])
+    	we chose specific columns from dataframe -> df_short = df_binance[['Event time', 'Open price', 'High price', 'Low price', 'Close price']]
+     	we sorted values by 'Event time' column -> df_short = df_short.sort_values(by='Event time')
 
 # EDA
 Summary Statistics:
