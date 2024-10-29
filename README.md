@@ -42,7 +42,7 @@ data science simple group project
 
 # EDA
 	Summary Statistics:
-		we used describe() method to show us key insite:
+	we used describe() method to show us key insite:
                           Event time    Open price  ...     Low price   Close price
 	count                           5297   5297.000000  ...   5297.000000   5297.000000
 	mean   2024-05-20 00:35:45.321837824  66917.509166  ...  66904.655182  66917.036058
