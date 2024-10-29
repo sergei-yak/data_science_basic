@@ -26,6 +26,28 @@ data science simple group project
         # Conclusion.
         # References (if any).
 
+# Intro to dataset
+The input data was taken from Binance exchange API. It is BTC_USDT futures with columns:
+-
+-
+-
+…
+For simplicity of this project we just use columns: …, high, low, open, close
+Time frame is in seconds from month to month.
+
+# Data claning and preprocessing
+...
+
+# EDA
+
+# Machine learning
+In the project we used two models:
+- ElasticNet() - linear regressiion...
+- LSTM model - nearul network ....
+
+# Conclusions
+....
+
 
 # Output
 <img width="1507" alt="Screenshot 2024-10-28 at 8 04 11 PM" src="https://github.com/user-attachments/assets/93d62aaf-5e50-4700-8257-115562f78a7a">
