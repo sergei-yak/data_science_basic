@@ -27,12 +27,12 @@ data science simple group project
         # References (if any).
 
 # Introduction to Dataset
-The input data was sourced from the Binance Exchange API. It consists of BTC_USDT futures with columns: Event Time, Min A Price, Max B Price, A Quantity, B Quantity, Volume Imbalance, Mid Price, Micro Price, Kline Start Time, Kline Close Time, Interval, Open Price, Close Price, High Price, Low Price, Base Asset Volume, Number of Trades, Quote Asset Volume, Taker Buy Base Asset Volume, and Taker Buy Quote Asset Volume.
+The input data was sourced from the Binance Exchange API. It consists of BTC_USDT futures data with columns: Event Time, Min A Price, Max B Price, A Quantity, B Quantity, Volume Imbalance, Mid Price, Micro Price, Kline Start Time, Kline Close Time, Interval, Open Price, Close Price, High Price, Low Price, Base Asset Volume, Number of Trades, Quote Asset Volume, Taker Buy Base Asset Volume, and Taker Buy Quote Asset Volume.
 
 For simplicity in this project, we used the following columns: Event Time, Open Price, Close Price, High Price, and Low Price.
 The time frame is in seconds, ranging from 2024-05-19 22:44:02.997 to 2024-05-20 02:24:30.632.
 
-# Data claning and preprocessing
+# Data cleaning and preprocessing
 1. We dropped NA values: df_binance = df_binance.dropna()
 2. We reset the index of the dataframe: df_binance = df_binance.reset_index(drop=True)
 3. We converted the 'Event Time' column to datetime format: df_binance['Event time'] = pd.to_datetime(df_binance['Event time'])
@@ -56,19 +56,23 @@ The time frame is in seconds, ranging from 2024-05-19 22:44:02.997 to 2024-05-20
 # Machine learning
 In this project, we used two models to compare their performance:
 
-ElasticNet() - A linear regression model used for regression tasks (using the scikit-learn library).
-LSTM Model - A recurrent neural network that excels at capturing long-term dependencies (using the PyTorch library).
+ElasticNet - A linear regression model used for regression tasks (using the scikit-learn library).
+LSTM Model - A recurrent neural network that excels at capturing long-term dependencies (using the PyTorch library). For better performance we use biderectional LSTM model.
+
 Evaluation Metrics Used:
 
-MAE - Mean Absolute Error, which measures the average absolute difference between predicted and actual values. Lower MAE indicates better performance.
-R² Score - Measures the proportion of variance in the target variable that is explained by the model. Higher R² scores indicate a better fit.
-MAPE - Mean Absolute Percentage Error, which measures the average percentage difference between predicted and actual values. Lower MAPE indicates better accuracy.
+- MAE - Mean Absolute Error, which measures the average absolute difference between predicted and actual values. Lower MAE indicates better performance.
+- R² Score - Measures the proportion of variance in the target variable that is explained by the model. Higher R² scores indicate a better fit.
+- MAPE - Mean Absolute Percentage Error, which measures the average percentage difference between predicted and actual values. Lower MAPE indicates better accuracy.
 
 # Conclusions
 - The Bidirectional LSTM model outperforms the ElasticNet model across all key metrics: MAE, R² Score, and MAPE.
 - The ElasticNet model showed high average error and low explanatory power (as indicated by the low R² Score), making it less reliable for predicting Bitcoin prices.
 - The Bidirectional LSTM model achieved lower average errors, higher variance explanation, and minimal percentage-based errors. This suggests that it captures the nonlinear patterns and temporal dependencies in Bitcoin prices more effectively than the ElasticNet model.
 
+# References
+Binance API - https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
+Plotly library for charts - https://plotly.com/python/subplots/
 
 # Output (was created using plotly library)
 <img width="1507" alt="Screenshot 2024-10-28 at 8 04 11 PM" src="https://github.com/user-attachments/assets/93d62aaf-5e50-4700-8257-115562f78a7a">
