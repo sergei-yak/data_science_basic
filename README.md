@@ -63,10 +63,10 @@ Evaluation metrics we used:
 - MAPE - the average percentage difference between predicted and actual values. A lower MAPE indicates better accuracy. '
 
 # Conclusions
-	The Bidirectional LSTM model outperforms the ElasticNet model on all key metrics: MAE, R² score, and MAPE.
- 	ElasticNet has a high average error and low explanatory power (as shown by the low R² score), making it less reliable for predicting Bitcoin prices.
-  	Bidirectional LSTM achieves lower average errors, higher variance explanation, and minimal percentage-based errors, indicating that it captures the nonlinear patterns and temporal dependencies in Bitcoin prices much more effectively than the ElasticNet.
+ The Bidirectional LSTM model outperforms the ElasticNet model on all key metrics: MAE, R² score, and MAPE.
+ ElasticNet has a high average error and low explanatory power (as shown by the low R² score), making it less reliable for predicting Bitcoin prices.
+ Bidirectional LSTM achieves lower average errors, higher variance explanation, and minimal percentage-based errors, indicating that it captures the nonlinear patterns and temporal dependencies in Bitcoin prices much more effectively than the ElasticNet.
 
 
-# Output
+# Output (was created using plotly library)
 <img width="1507" alt="Screenshot 2024-10-28 at 8 04 11 PM" src="https://github.com/user-attachments/assets/93d62aaf-5e50-4700-8257-115562f78a7a">
