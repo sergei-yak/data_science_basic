@@ -68,5 +68,53 @@ Evaluation metrics we used:
 - Bidirectional LSTM achieves lower average errors, higher variance explanation, and minimal percentage-based errors, indicating that it captures the nonlinear patterns and temporal dependencies in Bitcoin prices much more effectively than the ElasticNet.
 
 
+Introduction to Dataset
+
+The input data was sourced from the Binance Exchange API. It consists of BTC_USDT futures with columns: Event Time, Min A Price, Max B Price, A Quantity, B Quantity, Volume Imbalance, Mid Price, Micro Price, Kline Start Time, Kline Close Time, Interval, Open Price, Close Price, High Price, Low Price, Base Asset Volume, Number of Trades, Quote Asset Volume, Taker Buy Base Asset Volume, and Taker Buy Quote Asset Volume.
+
+For simplicity in this project, we used the following columns: Event Time, Open Price, Close Price, High Price, and Low Price.
+The time frame is in seconds, ranging from 2024-05-19 22:44:02.997 to 2024-05-20 02:24:30.632.
+
+Data Cleaning and Preprocessing
+
+We dropped NA values: df_binance = df_binance.dropna()
+We reset the index of the dataframe: df_binance = df_binance.reset_index(drop=True)
+We converted the 'Event Time' column to datetime format: df_binance['Event time'] = pd.to_datetime(df_binance['Event time'])
+We selected specific columns: df_short = df_binance[['Event time', 'Open price', 'High price', 'Low price', 'Close price']]
+We sorted the values by the 'Event Time' column: df_short = df_short.sort_values(by='Event time')
+Exploratory Data Analysis (EDA)
+
+Summary Statistics:
+We used the describe() method to gain key insights:
+
+mathematica
+Copy code
+                    Event Time          Open Price  ...       Low Price       Close Price
+Count                          5,297           5,297  ...           5,297             5,297
+Mean   2024-05-20 00:35:45.321837824     66,917.509  ...      66,904.655         66,917.036
+Min       2024-05-19 22:44:02.997000     66,323.600  ...      66,279.640         66,289.400
+25%    2024-05-19 23:41:33.167000064     66,687.820  ...      66,682.000         66,687.920
+50%    2024-05-20 00:36:13.321999872     67,010.010  ...      66,997.940         67,010.000
+75%    2024-05-20 01:30:52.481999872     67,110.190  ...      67,104.040         67,110.180
+Max       2024-05-20 02:24:30.632000     67,278.690  ...      67,277.100         67,289.480
+Std Dev                       NaN            225.395  ...          231.331            227.803
+Machine Learning
+
+In this project, we used two models to compare their performance:
+
+ElasticNet() - A linear regression model used for regression tasks (using the scikit-learn library).
+LSTM Model - A recurrent neural network that excels at capturing long-term dependencies (using the PyTorch library).
+Evaluation Metrics Used:
+
+MAE - Mean Absolute Error, which measures the average absolute difference between predicted and actual values. Lower MAE indicates better performance.
+R² Score - Measures the proportion of variance in the target variable that is explained by the model. Higher R² scores indicate a better fit.
+MAPE - Mean Absolute Percentage Error, which measures the average percentage difference between predicted and actual values. Lower MAPE indicates better accuracy.
+Conclusions
+
+The Bidirectional LSTM model outperforms the ElasticNet model across all key metrics: MAE, R² Score, and MAPE.
+The ElasticNet model showed high average error and low explanatory power (as indicated by the low R² Score), making it less reliable for predicting Bitcoin prices.
+The Bidirectional LSTM model achieved lower average errors, higher variance explanation, and minimal percentage-based errors. This suggests that it captures the nonlinear patterns and temporal dependencies in Bitcoin prices more effectively than the ElasticNet model.
+
+
 # Output (was created using plotly library)
 <img width="1507" alt="Screenshot 2024-10-28 at 8 04 11 PM" src="https://github.com/user-attachments/assets/93d62aaf-5e50-4700-8257-115562f78a7a">
