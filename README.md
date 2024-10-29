@@ -31,10 +31,15 @@ data science simple group project
 	
 	For simplicity of this project we just use columns: Event time, Open price, Close price, High price, Low price.
  	
-  	Time frame is in seconds from month to month.
+  	Time frame is in seconds from 2024-05-19 22:44:02.997 to 2024-05-20 02:24:30.632.
 
 # Data claning and preprocessing
-...
+	preprocessing techniques we used:
+ 	df_binance = df_binance.dropna()
+	df_binance = df_binance.reset_index(drop=True)
+	df_binance['Event time'] = pd.to_datetime(df_binance['Event time'])
+	df_short = df_binance[['Event time', 'Open price', 'High price', 'Low price', 'Close price']]
+	df_short = df_short.sort_values(by='Event time')
 
 # EDA
 Summary Statistics:
