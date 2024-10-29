@@ -40,8 +40,8 @@ The time frame is in seconds, ranging from 2024-05-19 22:44:02.997 to 2024-05-20
 5. We sorted the values by the 'Event Time' column: df_short = df_short.sort_values(by='Event time')
 
 # Exploratory Data Analysis (EDA)
-Summary Statistics:
-We used the describe() method to gain key insights:
+	Summary Statistics:
+	We used the describe() method to gain key insights:
                           Event time    Open price  ...     Low price   Close price
 	count                           5297   5297.000000  ...   5297.000000   5297.000000
 	mean   2024-05-20 00:35:45.321837824  66917.509166  ...  66904.655182  66917.036058
