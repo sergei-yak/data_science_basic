@@ -40,18 +40,28 @@ data science simple group project
 5. We sorted the values by the 'Event Time' column: df_short = df_short.sort_values(by='Event time')
 
 # Exploratory Data Analysis (EDA)
-	Summary Statistics:
-	We used the describe() method to gain key insights:
-                          Event time    Open price  ...     Low price   Close price
-	count                           5297   5297.000000  ...   5297.000000   5297.000000
-	mean   2024-05-20 00:35:45.321837824  66917.509166  ...  66904.655182  66917.036058
-	min       2024-05-19 22:44:02.997000  66323.600000  ...  66279.640000  66289.400000
-	25%    2024-05-19 23:41:33.167000064  66687.820000  ...  66682.000000  66687.920000
-	50%    2024-05-20 00:36:13.321999872  67010.010000  ...  66997.940000  67010.000000
-	75%    2024-05-20 01:30:52.481999872  67110.190000  ...  67104.040000  67110.180000
-	max       2024-05-20 02:24:30.632000  67278.690000  ...  67277.100000  67289.480000
-	std                              NaN    225.395426  ...    231.330622    227.803086
-
+- Summary Statistics:
+  		
+		We used the describe() method to gain key insights:
+	                          Event time    Open price  ...     Low price   Close price
+		count                           5297   5297.000000  ...   5297.000000   5297.000000
+		mean   2024-05-20 00:35:45.321837824  66917.509166  ...  66904.655182  66917.036058
+		min       2024-05-19 22:44:02.997000  66323.600000  ...  66279.640000  66289.400000
+		25%    2024-05-19 23:41:33.167000064  66687.820000  ...  66682.000000  66687.920000
+		50%    2024-05-20 00:36:13.321999872  67010.010000  ...  66997.940000  67010.000000
+		75%    2024-05-20 01:30:52.481999872  67110.190000  ...  67104.040000  67110.180000
+		max       2024-05-20 02:24:30.632000  67278.690000  ...  67277.100000  67289.480000
+		std                              NaN    225.395426  ...    231.330622    227.803086
+- Info to get information about columns data type using info() method:
+  		
+		Data columns (total 5 columns):
+		 #   Column       Non-Null Count  Dtype
+		---  ------       --------------  -----
+		 0   Event time   5297 non-null   datetime64[ns]
+		 1   Open price   5297 non-null   float64
+		 2   High price   5297 non-null   float64
+		 3   Low price    5297 non-null   float64
+		 4   Close price  5297 non-null   float64
 
 # Machine learning
 In this project, we used two models to compare their performance:
