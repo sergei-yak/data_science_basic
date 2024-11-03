@@ -93,9 +93,6 @@ predictions_df.reset_index(drop=True, inplace=True)
 print(predictions_df.sort_values(by='Event time'))
 
 # make evaluation metrics
-#from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import r2_score
 
 # Print evaluation metrics
 #print("Mean Squared Error: ", mean_squared_error(predictions_df['Actual'], predictions_df['Predicted']))
