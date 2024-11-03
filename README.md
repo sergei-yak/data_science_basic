@@ -45,6 +45,7 @@ In this project, we used two models to compare their performance:
 
 Evaluation Metrics Used:
 
+- MSE - Mean Squared Error, which measures the average of the squared differences between predicted and actual values. Lower MSE indicates better performance.
 - MAE - Mean Absolute Error, which measures the average absolute difference between predicted and actual values. Lower MAE indicates better performance.
 - R² Score - Measures the proportion of variance in the target variable that is explained by the model. Higher R² scores indicate a better fit.
 - MAPE - Mean Absolute Percentage Error, which measures the average percentage difference between predicted and actual values. Lower MAPE indicates better accuracy.
