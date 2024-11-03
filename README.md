@@ -61,6 +61,7 @@ Evaluation Metrics Used:
 - Plotly library for charts - https://plotly.com/python/subplots/
 
 # Output (was created using plotly library)
-![Correlation heatmap](https://github.com/user-attachments/assets/81bba03f-64c5-4191-bcb0-428500b4c39d)
+![Correlation heatmap](https://github.com/user-attachments/assets/6011751c-29a4-4372-8ef8-6b9343f77056)
+
 <img width="1492" alt="Screenshot 2024-10-29 at 12 49 32 AM" src="https://github.com/user-attachments/assets/911392a2-1450-4f78-b7e6-4633245cdbe8">
 
