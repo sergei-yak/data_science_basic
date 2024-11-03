@@ -31,6 +31,11 @@ print(df_short.info())
 
 # Correlation matrix excluding 'Event Time' column
 correlation_matrix = df_short.drop(columns=['Event time']).corr()
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix, annot=True, fmt=".2f",
+            cmap='coolwarm', square=True, cbar=True)
+plt.title('Correlation Heatmap')
+plt.show()
 
 #build candlestick chart in plotly
 import plotly.graph_objects as go
