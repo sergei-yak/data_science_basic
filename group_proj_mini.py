@@ -198,10 +198,12 @@ with torch.no_grad():
     y_pred = model(X_test)
 
 # Convert predictions and true values back to the original scale
-#y_pred_rescaled = scaler.inverse_transform(y_pred.numpy())
-y_pred_rescaled = scaler.inverse_transform(np.concatenate((np.zeros((y_pred.shape[0], 3)), y_pred.numpy()), axis=1))[:,3]
-#y_test_rescaled = scaler.inverse_transform(y_test.numpy())
-y_test_rescaled = scaler.inverse_transform(np.concatenate((np.zeros((y_test.shape[0], 3)), y_test.numpy()), axis=1))[:,3]
+
+y_pred_rescaled = scaler.inverse_transform(np.concatenate(
+            (np.zeros((y_pred.shape[0], 3)), y_pred.numpy()), axis=1))[:,3]
+
+y_test_rescaled = scaler.inverse_transform(np.concatenate(
+            (np.zeros((y_test.shape[0], 3)), y_test.numpy()), axis=1))[:,3]
 
 #add new data from LSTM model to predictions_df for comparison
 predictions_df_lstm = pd.DataFrame({
