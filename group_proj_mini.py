@@ -215,7 +215,6 @@ predictions_df_lstm = pd.DataFrame({
 
 # Reset index and concatenate
 predictions_df_lstm.reset_index(drop=True, inplace=True)
-#predictions_df = pd.concat([predictions_df, predictions_df_lstm], axis=0)
 predictions_df = pd.merge(predictions_df, predictions_df_lstm, on='Event time', how='inner')
 
 print(predictions_df.columns)
@@ -270,8 +269,6 @@ fig.add_trace(go.Table(
 fig.add_trace(go.Scatter(x=predictions_df[predictions_df['Model_y'] == "LSTM bidirectional"].tail(60).sort_values(by='Event time')['Event time'], y=predictions_df.tail(60).sort_values(by='Event time')['Predicted_y'], mode='lines', name='Prediction LSTM'), row=2, col=2)
 fig.add_trace(go.Scatter(x=predictions_df[predictions_df['Model_y'] == "LSTM bidirectional"].tail(60).sort_values(by='Event time')['Event time'], y=predictions_df.tail(60).sort_values(by='Event time')['Actual_y'], mode='lines', name='Actual price'), row=2, col=2)
 fig.add_trace(go.Scatter(x=predictions_df[predictions_df['Model_x'] == "ElasticNet"].tail(60).sort_values(by='Event time')['Event time'], y=predictions_df.tail(60).sort_values(by='Event time')['Predicted_x'], mode='lines', name='Prediction ElesticNet'), row=2, col=2)
-#fig.add_trace(go.Scatter(x=predictions_df[predictions_df['Model_x'] == "ElasticNet"].tail(60).sort_values(by='Event time')['Event time'], y=predictions_df.tail(60).sort_values(by='Event time')['Actual_x'], mode='lines', name='Actual price'), row=2, col=2)
-
 
 
 #add names for subplots x/y axis
