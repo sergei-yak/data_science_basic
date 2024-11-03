@@ -26,11 +26,11 @@ df_short = df_short.sort_values(by='Event time')
 # EDA and key insights
 print("Summary Statistics:")
 print(df_short.describe())
-#print("Correlation Matrix:")
-#print(df_binance.corr())
 print(df_short.columns)
 print(df_short.info())
 
+# Correlation matrix excluding 'Event Time' column
+correlation_matrix = df_short.drop(columns=['Event time']).corr()
 
 #build candlestick chart in plotly
 import plotly.graph_objects as go
