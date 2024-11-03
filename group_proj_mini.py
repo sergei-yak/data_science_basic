@@ -106,6 +106,7 @@ print("Mean Absolute Percentage Error: ", mean_absolute_error(
 
 #create df of evaluation metrics
 df_evaluation = pd.DataFrame({
+    'Mean Squared Error': [round(mean_squared_error(predictions_df['Actual'], predictions_df['Predicted']), 4)],        
     'Mean Absolute Error': [round(mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted']),4)],
     'R2 Score': [round(r2_score(predictions_df['Actual'], predictions_df['Predicted']),4)],
     'Mean Absolute Percentage Error': [round((mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted'])/predictions_df['Actual'].mean()),4)],
