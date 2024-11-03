@@ -95,10 +95,14 @@ print(predictions_df.sort_values(by='Event time'))
 # make evaluation metrics
 
 # Print evaluation metrics
-#print("Mean Squared Error: ", mean_squared_error(predictions_df['Actual'], predictions_df['Predicted']))
-print("Mean Absolute Error: ", mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted']))
-print("R2 Score: ", r2_score(predictions_df['Actual'], predictions_df['Predicted']))
-print("Mean Absolute Percentage Error: ", mean_absolute_error(predictions_df['Actual'], predictions_df['Predicted'])/predictions_df['Actual'].mean())
+print("Mean Squared Error: ", mean_squared_error(
+           predictions_df['Actual'], predictions_df['Predicted']))
+print("Mean Absolute Error: ", mean_absolute_error(
+            predictions_df['Actual'], predictions_df['Predicted']))
+print("R2 Score: ", r2_score(
+            predictions_df['Actual'], predictions_df['Predicted']))
+print("Mean Absolute Percentage Error: ", mean_absolute_error(
+            predictions_df['Actual'], predictions_df['Predicted'])/predictions_df['Actual'].mean())
 
 #create df of evaluation metrics
 df_evaluation = pd.DataFrame({
