@@ -29,6 +29,31 @@ print(df_short.describe())
 print(df_short.columns)
 print(df_short.info())
 
+# Summary statistics for each price type
+price_types = ['Open', 'High', 'Low', 'Close']
+mean_prices = [66917.51, 66929.86, 66904.66, 66917.04]
+min_prices = [66323.60, 66358.64, 66279.64, 66289.40]
+max_prices = [67278.69, 67278.23, 67277.10, 67289.48]
+
+# Bar width
+bar_width = 0.25
+
+# Positions for each bar on the x-axis
+r1 = np.arange(len(price_types))
+r2 = [x + bar_width for x in r1]
+r3 = [x + bar_width for x in r2]
+
+# Plotting bars
+plt.figure(figsize=(10, 6))
+plt.bar(r1, mean_prices, color='b', width=bar_width, edgecolor='grey', label='Mean')
+plt.bar(r2, min_prices, color='g', width=bar_width, edgecolor='grey', label='Min')
+plt.bar(r3, max_prices, color='r', width=bar_width, edgecolor='grey', label='Max')
+
+# Adding labels and title
+plt.xlabel('Price Type', fontweight='bold')
+plt.ylabel('Price', fontweight='bold')
+plt.xticks([r + bar_width for r in range(len(price_types))], price_types)
+plt.title('Summary Statistics for Open, High, Low, and Close Prices')
 # Correlation matrix excluding 'Event Time' column
 correlation_matrix = df_short.drop(columns=['Event time']).corr()
 plt.figure(figsize=(10, 8))
@@ -301,6 +326,41 @@ fig.add_annotation(
     bordercolor='#19D3F3',
     borderwidth=2
 )
+
+# Adding a legend
+plt.legend()
+
+# Display the chart
+# Summary statistics for each price type
+price_types = ['Open', 'High', 'Low', 'Close']
+mean_prices = [66917.51, 66929.86, 66904.66, 66917.04]
+min_prices = [66323.60, 66358.64, 66279.64, 66289.40]
+max_prices = [67278.69, 67278.23, 67277.10, 67289.48]
+
+# Bar width
+bar_width = 0.25
+
+# Positions for each bar on the x-axis
+r1 = np.arange(len(price_types))
+r2 = [x + bar_width for x in r1]
+r3 = [x + bar_width for x in r2]
+
+# Plotting bars
+plt.figure(figsize=(10, 6))
+plt.bar(r1, mean_prices, color='b', width=bar_width, edgecolor='grey', label='Mean')
+plt.bar(r2, min_prices, color='g', width=bar_width, edgecolor='grey', label='Min')
+plt.bar(r3, max_prices, color='r', width=bar_width, edgecolor='grey', label='Max')
+
+# Adding labels and title
+plt.xlabel('Price Type', fontweight='bold')
+plt.ylabel('Price', fontweight='bold')
+plt.xticks([r + bar_width for r in range(len(price_types))], price_types)
+plt.title('Summary Statistics for Open, High, Low, and Close Prices')
+
+# Adding a legend
+plt.legend()
+
+plt.show()
 
 fig.write_html('df_dashboard.html')
 fig.show()
